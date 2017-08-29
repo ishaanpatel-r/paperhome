@@ -1,0 +1,199 @@
+﻿<%@ Master Language="VB" CodeFile="AdminNavigation.master.vb" Inherits="AdminNavigation" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+<meta name="viewport" content="width=device-width" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/simple-sidebar.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="external/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" />
+    <link href="css/star-rating.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-modal-carousel.min.css" rel="stylesheet" type="text/css" />
+    
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header fixed-brand">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
+                      <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                    </button>
+                    <a class="navbar-brand" href="Home.aspx"><i class="fa fa-sticky-note fa-4"></i> &nbsp; paperhome </a>
+                    
+                </div><!-- navbar-header-->
+ 
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button></li>
+                            </ul>
+
+                                       <!-- This is Activity & Account- pulled right. -->
+<ul class="nav navbar-nav pull-right">
+    <li><a href="My Profile.aspx">You</a></li>
+    <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Activity  <b class="caret"></b>
+                        <ul class="dropdown-menu">
+                                 <ul class="list-group activity-list">
+            <li class="list-group-item">
+             <i class="glyphicon glyphicon-user icon-activity"></i>
+                <a href="#">*username*</a>, started follwing <a href="#">*username* and *x* other people.</a>"
+                <br />
+                <br />
+                <span class="pull-right text-muted small time-line">
+                *time* <span class="glyphicon glyphicon-time timestamp" data-toggle="tooltip" data-placement="bottom" title="*time*"></span>
+                </span>
+                
+            </li> </ul> 
+
+            <ul class="list-group activity-list">
+            <li class="list-group-item">
+            <i class="glyphicon glyphicon-bookmark"></i>
+                <a href="#">*username*</a>, commented on a <a href="#">*post*.</a>"
+                <br />
+                <br />
+                <span class="pull-right text-muted small time-line">
+                *time* <span class="glyphicon glyphicon-time timestamp" data-toggle="tooltip" data-placement="bottom" title="*time*"></span>
+                </span>
+                
+            </li> </ul> 
+
+     <ul class="list-group activity-list">
+            <li class="list-group-item"><a href="Activity.aspx"> See All (x) </a> </li> </ul> 
+
+                        </ul>
+
+                        <li class="divider-vertical"></li> <!-- This is to include a generic divide between two tabs. -->
+                     
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class=caret></b>
+                        <ul class="dropdown-menu">
+                          
+                                <ul class="list-group activity-list">
+            <li class="list-group-item"><a href="Settings.aspx"> Settings </a></ul></li>
+                                 <ul class="list-group activity-list">
+            <li class="list-group-item"><a data-toggle="modal" data-target="#lmodal"> Logout </a></ul>
+   </li>
+</ul>
+              
+
+              
+
+                 
+
+              
+  
+                </div><!-- bs-example-navbar-collapse-1 -->
+    </nav>
+    <div id="wrapper" class="toggled-2">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+                <br />
+                <br />
+                <li><a href="Feelpals.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x ">
+                </i></span>Feelpals</a> </li>
+                <li><a href="Messages.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-comments fa-stack-1x ">
+                </i></span>Messages</a> </li>
+                <li><a href="MyDiary.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-book fa-stack-1x ">
+                </i></span>My Diary</a> </li>
+                <li><a href="Explore.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-search fa-stack-1x ">
+                </i></span>Explore</a> </li>
+                <li><br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />  <br /> <br /> <br /></li>
+                <li><a href="Admin.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-user fa-stack-1x ">
+                </i></span>Monitor Paperhome</a> </li>
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- DYNAMIC CONTAINER -->
+        <form runat="server">
+        <div id="page-content-wrapper" class="toggled">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <asp:ContentPlaceHolder ID="PageContent" runat="server">
+                        </asp:ContentPlaceHolder>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- STATIC CONTAINER -->
+        <asp:ContentPlaceHolder ID="Feed" runat="server">
+        </asp:ContentPlaceHolder>
+
+        
+        </form>
+    </div>
+    <!-- SCRIPTS -->
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="js/sidebar_menu.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap-wysiwyg.min.js" type="text/javascript"></script>
+    
+    <script src="external/google-code-prettify/prettify.js" type="text/javascript"></script>
+    <script src="external/jquery.hotkeys.js" type="text/javascript"></script>
+    <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"
+        type="text/javascript"></script>
+    <script src="js/star-rating.js" type="text/javascript"></script>
+    <script src="js/masonry-docs.min.js" type="text/javascript"></script>
+    <script src="js/masonry.js" type="text/javascript"></script>
+    <script src="js/masonry.pkgd.js" type="text/javascript"></script>
+    <script src="js/masonry.pkgd.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap-modal-carousel.min.js" type="text/javascript"></script>
+    <script type='text/javascript'>        $('#editor').wysiwyg();</script>
+    <script type="text/javascript">        $('#sandbox-container .input-group.date').datepicker({
+            format: "dd/mm/yyyy"
+        });</script>
+    
+    
+       
+    <script type="text/javascript">
+
+
+        (function ($) {
+
+            var $container = $('.masonry-container');
+            $container.imagesLoaded(function () {
+                $container.masonry({
+                    columnWidth: '.item',
+                    itemSelector: '.item'
+                });
+            });
+
+            //Reinitialize masonry inside each panel after the relative tab link is clicked - 
+            $('a[data-toggle=tab]').each(function () {
+                var $this = $(this);
+
+                $this.on('shown.bs.tab', function () {
+
+                    $container.imagesLoaded(function () {
+                        $container.masonry({
+                            columnWidth: '.item',
+                            itemSelector: '.item'
+                        });
+                    });
+
+                }); //end shown
+            });  //end each
+
+        })(jQuery);
+    
+    </script>
+   
+
+
+
+
+   
+</body>
+</html>
+

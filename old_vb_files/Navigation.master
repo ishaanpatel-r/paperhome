@@ -1,0 +1,1654 @@
+<%@ Master Language="VB" CodeFile="Navigation.master.vb" Inherits="Navigation" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/simple-sidebar.css" rel="stylesheet" type="text/css" />
+    <link href="external/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" />
+    <link href="css/star-rating.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/blueimp-gallery.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-tokenfield.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-tokenfield.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-suggest.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.fd.css" rel="stylesheet" type="text/css" />
+    <link href="css/tokenfield-typeahead.css" rel="stylesheet" type="text/css" />
+    <link href="css/tokenfield-typeahead.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/toastr.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="min-width: 0px; max-width: 9999px; background-color:#fff;"> <!--f1f1f1-->
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
+    </asp:ScriptManager>
+    <div class="container-fluid">
+        <asp:UpdatePanel runat="server" ID="mainnav" UpdateMode="always">
+            <ContentTemplate>
+                <div class="navbar navbar-default navbar-fixed-top">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header fixed-brand">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
+                            <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                        </button>
+                        <a class="navbar-brand" href="Home.aspx"><i class="fa fa-sticky-note fa-4"></i>&nbsp;
+                    paperhome </a>
+                    </div>
+                    <!-- navbar-header-->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <!-- This is Activity & Account- pulled right. -->
+                        <ul class="nav navbar-nav pull-right">
+                            <%--<li>
+                        <div class="navbar-form" role="search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" />
+                               <button class="input-group-addon btn btn-default btn-sm" type="submit">
+                                    
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    
+                               </button>
+                            </div>
+                        </div>
+                    </li>--%>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                                class="glyphicon glyphicon-bell"></i></a>
+                                <ul class="dropdown-menu" role="menu" style="left: -220px;">
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active"><a href="#actnotifications" data-toggle="tab">Notifications</a></li>
+                                                    <li><a href="#actrequests" data-toggle="tab">Requests</a></li>
+                                                </ul>
+                                                <div id="myTabContent" class="tab-content">
+                                                    <div class="tab-pane fade active in" id="actnotifications">
+                                                        <asp:UpdatePanel runat="server" ID="UpdatePanel1" ChildrenAsTriggers="true">
+                                                            <ContentTemplate>
+                                                                <asp:Repeater ID="actnotifrep" runat="server">
+                                                                    <ItemTemplate>
+                                                                        <ul class="list-group activity-list">
+                                                                            <li class="list-group-item"><i class="glyphicon <%# If(DataBinder.Eval(Container.DataItem, "type") = "started following", "glyphicon-user", If(DataBinder.Eval(Container.DataItem, "type") = "commented on a", "glyphicon-bookmark", If(DataBinder.Eval(Container.DataItem, "type") = "wrote a new", "glyphicon-pencil", If(DataBinder.Eval(Container.DataItem, "type") = "liked a", "glyphicon-heart", If(DataBinder.Eval(Container.DataItem, "type") = "updated", "glyphicon-cog", If(DataBinder.Eval(Container.DataItem, "type") = "uploaded", "glyphicon-film", If(DataBinder.Eval(Container.DataItem, "type") = "tagged", "glyphicon-bookmark", "glyphicon-bookmark")))))))%>"></i>&nbsp; <a href="XsProfile.aspx?profileid=<%# Eval("profile_id") %>" style="text-decoration: none;"
+                                                                                style="text-decoration: none;">
+                                                                                <%# Eval("uname")%></a>
+                                                                                <%# Eval("type")%>
+                                                                                <a style="text-decoration: none;">
+                                                                                    <%# If(DataBinder.Eval(Container.DataItem, "type") = "started following", "you.", If(DataBinder.Eval(Container.DataItem, "type") = "commented on a", "post you wrote.", If(DataBinder.Eval(Container.DataItem, "type") = "wrote a new", "post.", If(DataBinder.Eval(Container.DataItem, "type") = "liked a", "post you wrote.", If(DataBinder.Eval(Container.DataItem, "type") = "updated", "their profile.", If(DataBinder.Eval(Container.DataItem, "type") = "uploaded", "new photos.", If(DataBinder.Eval(Container.DataItem, "type") = "tagged", "post.", "post you wrote.")))))))%></a>
+                                                                                <br />
+                                                                                <br />
+                                                                                <span class="pull-right text-muted small time-line" data-livestamp="<%# Eval("date_time_written", "{0:f}")%>"></span>
+                                                                                <br />
+                                                                            </li>
+                                                                    </ItemTemplate>
+                                                                </asp:Repeater>
+                                                            </ContentTemplate>
+                                                        </asp:UpdatePanel>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="actrequests">
+                                                        <ul class="list-group" id="contact-list">
+                                                            <asp:UpdatePanel runat="server" ID="UpdatePanel2" ChildrenAsTriggers="true" UpdateMode="Always">
+                                                                <ContentTemplate>
+                                                                    <asp:Repeater ID="actreqrep" runat="server">
+                                                                        <ItemTemplate>
+                                                                            <div class="navbar-login">
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-4">
+                                                                                        <a href="XsProfile.aspx?profileid=<%# Eval("profile_id") %>" style="text-decoration: none;">
+                                                                                            <img src='<%# Eval("dp_url") %>' alt='<%# Eval("fname")%> acquired invisibility'
+                                                                                                class="img-responsive" /></a>
+                                                                                    </div>
+                                                                                    <div class="col-sm-8">
+                                                                                        <p class="text-left">
+                                                                                            <strong><a href="XsProfile.aspx?profileid=<%# Eval("profile_id") %>">
+                                                                                                <%# Eval("fname")%>
+                                                                                                <%# Eval("lname")%></a></strong>
+                                                                                        </p>
+                                                                                        <br />
+                                                                                        <p class="text-left">
+                                                                                            <asp:LinkButton ID="LinkButton3" runat="server" CssClass="btn btn-success btn-xs glyphicon glyphicon-ok"
+                                                                                                OnCommand="accept" CommandArgument='<%# Eval("profile_id") %>'></asp:LinkButton>
+                                                                                            <asp:LinkButton ID="LinkButton4" runat="server" CssClass="btn btn-danger  btn-xs glyphicon glyphicon-remove"
+                                                                                                OnCommand="decline" CommandArgument='<%# Eval("profile_id") %>'></asp:LinkButton>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr />
+                                                                        </ItemTemplate>
+                                                                    </asp:Repeater>
+                                                                </ContentTemplate>
+                                                            </asp:UpdatePanel>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <%--<li class="divider"></li>--%>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <a href="Activity.aspx" style="text-decoration: none;">
+                                                    <center>
+                                                        <p>
+                                                            <strong>See All</strong>
+                                                        </p>
+                                                    </center>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="true">Account <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu" style="left: -220px;">
+                                    <li>
+                                        <div class="navbar-login">
+                                            <asp:Repeater ID="accrep" runat="server">
+                                                <ItemTemplate>
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <a href="MyProfile.aspx">
+                                                                <img class="img-responsive" src='<%# Eval("dp_url") %>' /></a>
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            <p class="text-left">
+                                                                <a href="MyProfile.aspx" style="text-decoration: none;"><strong>
+                                                                    <%# Eval("fname")%>
+                                                                    <%# Eval("lname") %></strong></a>
+                                                            </p>
+                                                            <p class="text-left small">
+                                                                <%# Eval("email") %>
+                                                            </p>
+                                                            <p class="text-left">
+                                                                <a href="Settings.aspx" class="btn btn-primary btn-block btn-sm">Settings</a>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="navbar-login navbar-login-session">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <p>
+                                                        <a data-toggle="modal" data-target="#lmodal" class="btn btn-danger btn-block">Logout</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                        <%-- <div class="col-sm-3 col-sm-offset-6" style="padding-top:3px;">
+        <div class="navbar-form" role="search">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" name="q">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+        </div>
+    </div>--%>
+                    </div>
+                </div>
+                <asp:LinkButton runat="server" ID="upmainnavbut" Visible="false" OnClick="reload"></asp:LinkButton>
+            </ContentTemplate>
+        </asp:UpdatePanel> 
+        
+        <div id="wrapper" class="toggled-2">
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper" style="background-color: #fff">
+                <!-- style="background-color: #000"-->
+                <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+                    <br />
+                    <br />
+                    <li><a href="Home.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-home fa-stack-1x ">
+                    </i></span>Home</a> </li>
+                    <li><a href="Feelpals.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x ">
+                    </i></span>Feelpals</a> </li>
+                    <li><a href="Messages.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-comments fa-stack-1x ">
+                    </i></span>Messages</a></li>
+                    <li><a href="MyPhotos.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-camera-retro fa-stack-1x ">
+                    </i></span>Photos</a> </li>
+                    <li><a href="MyDiary.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-book fa-stack-1x ">
+                    </i></span>My Diary</a> </li>
+                    <li><a href="Explore.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-search fa-stack-1x ">
+                    </i></span>Explore</a> </li>
+                    <div id="adminlink" runat="server">
+                        <li><a href="Admin.aspx"><span class="fa-stack fa-lg pull-left"><i class="fa fa-user fa-stack-1x ">
+                        </i></span>Monitor Paperhome</a> </li>
+                    </div>
+                </ul>
+            </div>
+            <!-- /#sidebar-wrapper -->
+            <!-- DYNAMIC CONTAINER -->
+            <div id="page-content-wrapper" class="toggled">
+                <div class="container-fluid">
+                    <div class="row col-lg-offset-1" style="padding-left: 77px">
+                        <div class="col-lg-12">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- STATIC CONTAINER -->
+            <div style="padding-right: 77px">
+                <!-- #chatbot -->
+                <div style="padding-right: 2px">
+                    <div class="chat-head" id="ch">
+                    <a class="person"><div class="container">
+  <div class="bird-back-head"></div>
+  
+  <div class="bird-head">
+    <div class="eye"></div>
+    <div class="beak-top"></div>
+    <div class="beak-bottom"></div>
+  </div>
+  
+  <div class="wing one"></div>
+  <div class="wing two"></div>
+  <div class="wing three"></div>
+  
+  <div class="bird-body"></div>
+  <div class="tail"></div>
+</div></a>
+                   
+                </div>
+                    <asp:ContentPlaceHolder ID="PageContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <div class="modal fade" id="lmodal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    ×</button>
+                                <br />
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Are you sure you want to logout?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Cancel</button>
+                                <asp:LinkButton ID="LinkButton1" type="button" runat="server" OnClick="logoutsess"
+                                    CssClass="btn btn-primary">
+                        Yes</asp:LinkButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Logout Modal-->
+                <div class="modal fade" id="deleteaccountwarn">
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">
+                            ×</button>
+                        <strong>
+                            <h1>
+                                Oh snap!</h1>
+                        </strong>
+                        <h3>
+                            <br />
+                            You're about to proceed to delete your account pemanently.
+                            <br />
+                            You will not be able to recover any data back once you've deleted your account.<br />
+                            <br />
+                            <br />
+                            <a href="DelAcc.aspx" class="btn btn-default btn-lg">Continue?</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete Account Modal-->
+             </div>
+    <!-- SCRIPTS -->
+    </div>
+    </form>
+   
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="js/sidebar_menu.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="external/google-code-prettify/prettify.js" type="text/javascript"></script>
+    <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"
+        type="text/javascript"></script>
+    <script src="js/star-rating.js" type="text/javascript"></script>
+    <script src="js/masonry-docs.min.js" type="text/javascript"></script>
+    <script src="js/masonry.js" type="text/javascript"></script>
+    <script src="js/masonry.pkgd.js" type="text/javascript"></script>
+    <script src="js/masonry.pkgd.min.js" type="text/javascript"></script>
+    <script src="js/moment.min.js" type="text/javascript"></script>
+    <script src="js/livestamp.js" type="text/javascript"></script>
+    <script src="js/bootstrap3-typeahead.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap-tokenfield.js" type="text/javascript"></script>
+    <script src="js/bootstrap-tokenfield.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap-suggest.js" type="text/javascript"></script>
+    <script src="js/jquery.blueimp-gallery.min.js" type="text/javascript"></script>
+    <script src="js/formValidation.min.js" type="text/javascript"></script>
+    <script src="js/formValidation.js" type="text/javascript"></script>
+    <script src="js/bootstrap.fd.js" type="text/javascript"></script>
+    <script src="js/toastr.js" type="text/javascript"></script>
+    <script src="js/jquery.autocorrect.js" type="text/javascript"></script>
+    <script src="assets/js/lib/turn.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+   <script type="text/javascript">//handle notifs update
+
+       window.setInterval(function () {
+           $.ajax({
+               url: "handlenotifs.ashx",
+               contentType: "application/json; charset=utf-8",
+               data: { 'tick': 'wowie' },
+               responseType: "json",
+               success: OnComplete,
+               error: OnFail
+           });
+           return false;
+
+       }, 3000);
+
+
+
+       function OnComplete(result) {
+
+           if (!$.trim(result)) {
+
+           }
+           else {
+
+
+               if (result == "yes") {
+                   var UpdatePanel1 = '<%=UpdatePanel1.ClientID%>';
+                   __doPostBack(UpdatePanel1, '');
+                   toastr.options = {
+                       "closeButton": false,
+                       "debug": false,
+                       "newestOnTop": true,
+                       "progressBar": false,
+                       "positionClass": "toast-bottom-left",
+                       "preventDuplicates": true,
+                       "onclick": null,
+                       "showDuration": "1300",
+                       "hideDuration": "1300",
+                       "timeOut": "5300",
+                       "extendedTimeOut": "1000",
+                       "showEasing": "swing",
+                       "hideEasing": "linear",
+                       "showMethod": "fadeIn",
+                       "hideMethod": "fadeOut"
+                   }
+                   toastr.success('NEW REVCDEDE.');
+
+                }
+
+
+
+            }
+        }
+
+        function OnFail(result) {
+
+
+        }
+
+
+       
+</script>
+    <script type="text/javascript">
+        //fileup
+
+        function openup() {
+
+            $.FileDialog({ multiple: true }).on('files.bs.filedialog', function (ev) {
+                var files = ev.files;
+
+                var data = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    data.append(files[i].name, files[i]);
+                }
+                $.ajax({
+                    url: "PhotosUploadHandler.ashx",
+                    type: "POST",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        toastr.options = {
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": false,
+                            "positionClass": "toast-bottom-left",
+                            "preventDuplicates": true,
+                            "onclick": null,
+                            "showDuration": "1300",
+                            "hideDuration": "1300",
+                            "timeOut": "5300",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                        toastr.success('Photos uploaded.');
+                        location.reload();
+                    },
+                    error: function (err) {
+                        toastr.options = {
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": false,
+                            "positionClass": "toast-bottom-left",
+                            "preventDuplicates": true,
+                            "onclick": null,
+                            "showDuration": "1300",
+                            "hideDuration": "1300",
+                            "timeOut": "5300",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                        toastr.warning('There was something wrong with the server. Please try again later.');
+                    }
+                });
+            }).on('cancel.bs.filedialog', function (ev) {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": true,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-left",
+                    "preventDuplicates": true,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "300",
+                    "timeOut": "1300",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                toastr.info('Upload cancelled.');
+            });
+        }
+
+        
+        ////feed
+        //function togcom() {
+        //    var tog = $(".toggler");
+        //    var secondDiv = tog.parent().prev();
+        //    var firstDiv = secondDiv.prev();
+        //    var $container = $('.masonry-container');
+        //    firstDiv.children('p').toggleClass('hide');
+        //    secondDiv.toggleClass('hide');
+        //    //tog.parent().find('.first > p').toggleClass('hide');
+        //    //tog.parent().find('.second').toggleClass('hide');
+        //    //$('.first > .main').toggleClass('hide');
+        //    tog.toggleClass('fa fa-chevron-up fa fa-chevron-down');
+        //    $container.masonry({
+        //        columnWidth: '.item',
+        //        itemSelector: '.item'
+        //    });
+        //    return false;
+        //}
+
+        
+        function showtoastrinfo(toasttxt) {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": false,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "300",
+                "timeOut": "4300",
+                "extendedTimeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.info(toasttxt);
+        }
+
+        function showbooktoastrinfo(toasttxt) {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": false,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "300",
+                "timeOut": "300",
+                "extendedTimeOut": "300",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.info(toasttxt);
+        }
+
+        function showtoastrsuccess(toasttxt) {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "300",
+                "timeOut": "1300",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.success(toasttxt);
+        }
+    </script>
+    <script type="text/javascript">
+
+
+        function pageLoad(sender, args) {
+            $(document).ready(function () {
+
+                //infinite scroll
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                        InfiniteScroll();
+                    }
+                });
+
+            //modal window sized
+            $('.modal').on('show.bs.modal', function () {
+$('.mwrites').css('height',$( window ).height()*1);
+});
+               //autocomplete  
+    $(".ac").typeahead({
+        source: <% Response.Write(strMessaging) %>
+         minLength: 0
+    });
+
+    //autocomplete feelings
+    $(".acf").typeahead({
+        source: ['Abandoned ','Abhor ','Ablaze ','Abominable ','Abrasive ','Absorbed ','Absurd ','Abused ','Abusive ','Accommodating ','Acknowledged ','Acquiescent ','Acrimonious ','Admonished ','Adoration ','Adored ','Adventurous ','Adverse ','Affected ','Affectionate ','Afflicted ','Affronted ','Afraid ','Aggravated ','Aggressive ','Agitated ','Agonized ','Agony ','Agreeable ','Airy ','Awkward ','Alienated ','Alive ','Alluring ','Alone ','Altruistic ','Ambiguous ','Ambitious ','Amenable ','Amorous ','Amused ','Anger ','Angry ','Anguished ','Animated ','Annoyed ','Anxiety ','Anxious ','Apathy ','Appealing ','Appeasing ','Appetizing ','Appreciation ','Apprehensive ','Ardent ','Arduous ','Argumentative ','Armored ','Aroused ','Arrogant ','Astounded ','Attentive ','Avoidance ','Beaten down ','Bemused ','Betrayed ','Bewildered ','Bewitched ','Bitchy ','Bitter ','Blah ','Blessed ','Blissful ','Blunt ','Boiling ','Bored ','Bothered ','Brave ','Breathless ','Breezy ','Bright ','Broken ','Bruised ','Buoyant ','Burdensome ','Bursting ','Callous ','Calm ','Captivated ','Captivating ','Careless ','Caring ','Celebrating ','Chagrined ','Charmed ','Charming ','Chastened ','Cheerful ','Cherishing ','Clandestine ','Clear ','Cold ','Cold-blooded ','Collected ','Comatose ','Comfortable ','Compassion ','Competitive ','Complacent ','Composed ','Concerned ','Confused ','Congenial ','Content ','Cool ','Compacetic ','Coping ','Cordial ','Cornered ','Creative ','Crucified ','Crushed ','Cursed ','Cushy ','Cut down ','Dainty ','Defensive ','Dejected ','Delectable ','Delicate ','Delighted ','Demure ','Depressed ','Desirable ','Desired ','Desolate ','Despair ','Despondent ','Devoted ','Devoured ','Discomfort ','Discontented ','Disgust ','Dismal ','Dispassionate ','Displeased ','Disregard ','Disregarding ','Distracted ','Distressed ','Disturbed ','Doldrums ','Doomed ','Droopy ','Dull ','Eager ','Earnest ','Easy ','Ecstatic ','Electric ','Enchanted ','Endearing ','Enduring ','Engaging ','Enjoy ','Enlivened ','Enraged ','Enraptured ','Enthused ','Enthusiastic ','Enticing ','Even tempered ','Exacerbated ','Exasperated ','Excited ','Exciting ','Exultation ','Fanatical ','Fascinated ','Fascinating ','Fear ','Fearful ','Fearing ','Fervent ','Fervor ','Fiery ','Flared up ','Flattering ','Flushed ','Flustered ','Fluttery ','Foaming at the mouth ','Forbearance ','Fortitude ','Frantic ','Fretful ','Frigid ','Frisky ','Frustration ','Full ','Fuming ','Fun ','Funny ','Furious ','Galvanized ','Gay ','Genial ','Giggly ','Glad ','Glee ','Gleeful ','Gloom ','Gloomy ','Glowing ','Gnawing ','Good ','Goodness ','Grateful ','Gratified ','Gratitude ','Grave ','Grief ','Grieving ','Grim ','Griped ','Grounded ','Gushing, ','Gusto ','Haggard ','Half-hearted ','Hardened ','Harsh ','Having Fun ','Hearty ','Heavy ','Hectic ','Hilarious ','Hope ','Hopeful ','Horrific ','Horrified ','Horror-stricken ','Humorous ','Hurt ','Hysterical ','Impetuous ','Imposing ','Impressed ','Impressionable ','Impulsive ','In a dither ','In a flurry ','In a pickle ','In a stupor ','In a trance ','In purgatory ','Inattentive ','Indulged ','Indulgent ','Inept ','Infelicitous ','Inflexible ','Infuriated ','Insatiable ','Insensitive ','Insouciant ','Inspired ','Interested ','Intimidated ','Intrigued ','Inviting ','Irrepressible ','Irritated ','Irritation ','Jaunty ','Jealous ','Jittery ','Jolly ','Jovial ','Joy ','Joyful ','Jubilation ','Languid ','Languish ','Laugh ','Laughingly ','Lethargic ','Light hearted ','Lively ','Loathe ','Lonely ','Lonesome ','Long-suffering ','Lost ','Love ','Loved ','Loving ','Lukewarm ','Luxurious ','Mad ','Manic ','Martyr ','Meddlesome ','Melancholy ','Melodramatic ','Merry ','Mindful ','Mindless ','Mirthful ','Miserable ','Moderate ','Mopy ','Mortified ','Moved ','Nervous ','Nonchalant ','Not caring ','Numb ','Optimistic ','Over the edge ','Overflowing ','Overwrought ', 'Pain ','Panic ','Paralyzed ','Passionate ','Passive ','Patient ','Peace of mind ','Perky ','Perplexed ','Perturbation ','Perturbed ','Petrified ','Pine ','Piquant ','Pitied ','Placid ','Plagued ','Pleasant ','Pleasing ','Pleasurable ','Pleasured ','Pressured ','Prey to ','Pride ','Protected ','Proud ','Provocative ','Provoked ','Quarrelsome ','Quenched ','Quiet ','Quivering ','Quivery ','Radiant ','Rash ','Raving ','Ravished ','Ravishing ','Ready to burst ','Receptive ','Reckless ','Reconciled ','Refreshed ','Rejected ','Rejection ','Rejoice ','Relish ','Repressed ','Repugnant ','Resentful ','Resentment ','Resigned ','Resistant ','Restrained ','Restraint ','Revived ','Ridiculous ','Romantic ','Rueful ','Safe ','Satiated ','Satisfaction ','Satisfied ','Scared ','Secretive ','Secure ','Sedate ','Seduced ','Seductive ','Seething ','Selfish ','Sensational ','Sensual ','Sentimental ','Serious ','Shaken ','Shame ','Shielded ','Shocked ','Shutter ','Shy ','Silly ','Simmering ','Sincere ','Sinking ','Smug ','Snug ','Sober ','Sobering ','Soft ','Solemn ','Somber ','Sore ','Sorrow ','Sorrowful ','Sour ','Sparkling ','Spastic ','Spicy ','Spirited ','Spry ','Stoic ','Stranded ','Stressed ','Stricken ','Stung ','Stunned ','Subdued ','Subjugated ','Suffering ','Sunny ','Supportive ','Surrender ','Susceptible ','Suspended ','Sweet ','Sympathy ','Taken advantage of ','Tame ','Tantalizing ','Tantrumy ','Temperate ','Tender ','The blues ','Thick-skinned ','Thin-skinned ','Threatened ','Thrilled ','Tickled ','Tight ','Tight-lipped ','Timid ','Tingly ','Tolerant ','Tormented ','Tortured ','Touched ','Tranquil ','Transported ','Trepidation ','Troubled ','Twitchy ','Uncomfortable ','Unconcerned ','Unconscious ','Uncontrollable ','Under pressure ','Undone ','Unfeeling ','Unhappy ','Unimpressed ','Unruffled ','Used ','Vexed ','Victim ','Victimized ','Vivacious ','Volcanic ','Voluptuous ','Vulnerable ','Warm ','Warmhearted ','Weary ','Welcomed ','Whining ','Winsome ','Wistful ','Woe ','Woeful ','Worked up ','Worried ','Wounded ','Wretched ','Yearn ','Yearning ','Yielding ','Zeal ','Zealous', 'Focused', 'Honoured', 'Trapped', 'Dizzy', 'Home-Sick', 'Pissed-Off'],
+         minLength: 2
+    });
+    //        //taglight
+    //$('#comms').highlightRegex(/@\w+/, {
+    //    attrs: { 'data-color': 'blue' }
+    //});
+
+           //taglist
+        var users = <% Response.Write(str) %>
+
+
+        $('.pi').suggest('@', {
+            data: users,
+            map: function (user) {
+                return {
+                    value: user.username,
+                    text: '<strong>' + user.username + '</strong> <small>' + user.fullname + '</small>'
+                }
+            }
+        })
+            
+            $("#ctl00_PageContent_posttxt").autocorrect({
+                corrections: {
+                    abbout:"about",
+                    abotu:"about",
+                    abouta:"about a",
+                    aboutit:"about it",
+                    aboutthe:"about the",
+                    abscence:"absence",
+                    accesories:"accessories",
+                    accidant:"accident",
+                    accomodate:"accommodate",
+                    accordingto:"according to",
+                    accross:"across",
+                    acheive:"achieve",
+                    acheived:"achieved",
+                    acheiving:"achieving",
+                    acn:"can",
+                    acommodate:"accommodate",
+                    acomodate:"accommodate",
+                    actualyl:"actually",
+                    additinal:"additional",
+                    addtional:"additional",
+                    adequit:"adequate",
+                    adequite:"adequate",
+                    adn:"and",
+                    advanage:"advantage",
+                    affraid:"afraid",
+                    afterthe:"after the",
+                    againstthe:"against the",
+            aganist:"against",
+            aggresive:"aggressive",
+            agian:"again",
+            agreemeent:"agreement",
+            agreemeents:"agreements",
+            agreemnet:"agreement",
+            agreemnets:"agreements",
+            agressive:"aggressive",
+            ahppen:"happen",
+            ahve:"have",
+            allwasy:"always",
+            allwyas:"always",
+            almots:"almost",
+            almsot:"almost",
+            alomst:"almost",
+            alot:"a lot",
+            alraedy:"already",
+            alreayd:"already",
+            alreday:"already",
+            alwasy:"always",
+            alwats:"always",
+            alway:"always",
+            alwyas:"always",
+            amde:"made",
+            Ameria:"America",
+            amke:"make",
+            amkes:"makes",
+            anbd:"and",
+            andone:"and one",
+            andthe:"and the",
+            andteh:"and the",
+            andthe:"and the",
+            anothe:"another",
+            anual:"annual",
+            apparant:"apparent",
+            apparrent:"apparent",
+            appearence:"appearance",
+            appeares:"appears",
+            applicaiton:"application",
+            applicaitons:"applications",
+            applyed:"applied",
+            appointiment:"appointment",
+            approrpiate:"appropriate",
+            approrpriate:"appropriate",
+            aquisition:"acquisition",
+            aquisitions:"acquisitions",
+            arent:"aren’t",
+            arguement:"argument",
+            arguements:"arguments",
+            arnt:"aren’t",
+            arond:"around",
+            artical:"article",
+            articel:"article",
+            asdvertising:"advertising",
+            askthe:"ask the",
+            assistent:"assistant",
+            asthe:"as the",
+            atention:"attention",
+            atmospher:"atmosphere",
+            attentioin:"attention",
+            atthe:"at the",
+            audeince:"audience",
+            audiance:"audience",
+            availalbe:"available",
+            awya:"away",
+            aywa:"away",
+            bakc:"back",
+            balence:"balance",
+            ballance:"balance",
+            baout:"about",
+            bcak:"back",
+            beacuse:"because",
+            becasue:"because",
+            becaus:"because",
+            becausea:"because a",
+            becauseof:"because of",
+            becausethe:"because the",
+            becauseyou:"because you",
+            becomeing:"becoming",
+            becomming:"becoming",
+            becuase:"because",
+            becuse:"because",
+            befoer:"before",
+            beggining:"beginning",
+            begining:"beginning",
+            beginining:"beginning",
+            beleiev:"believe",
+            beleieve:"believe",
+            beleif:"belief",
+            beleive:"believe",
+            beleived:"believed",
+            beleives:"believes",
+            benifit:"benefit",
+            benifits:"benefits",
+            betwen:"between",
+            beutiful:"beautiful",
+            blase:"blasé",
+            boxs:"boxes",
+            brodcast:"broadcast",
+            butthe:"but the",
+            bve:"be",
+            bythe:"by the",
+            cafe:"café",
+            caharcter:"character",
+            calcullated:"calculated",
+            calulated:"calculated",
+            cantofbeen:"can’t have been",
+            cant:"can’t",
+            candidtae:"candidate",
+            candidtaes:"candidates",
+            catagory:"category",
+            categiory:"category",
+            certian:"certain",
+            challange:"challenge",
+            challanges:"challenges",
+            chaneg:"change",
+            chanegs:"changes",
+            changable:"changeable",
+            changeing:"changing",
+            changng:"changing",
+            charachter:"character",
+            charachters:"characters",
+            charactor:"character",
+            charecter:"character",
+            charector:"character",
+            cheif:"chief",
+            chekc:"check",
+            chnage:"change",
+            cieling:"ceiling",
+            circut:"circuit",
+            claer:"clear",
+            claered:"cleared",
+            claerly:"clearly",
+            cliant:"client",
+            cliche:"cliché",
+            cna:"can",
+            colection:"collection",
+            comanies:"companies",
+            comany:"company",
+            comapnies:"companies",
+            comapny:"company",
+            combintation:"combination",
+            comited:"committed",
+            comittee:"committee",
+            commadn:"command",
+            comming:"coming",
+            commitee:"committee",
+            committe:"committee",
+            committment:"commitment",
+            committments:"commitments",
+            committy:"committee",
+            comntain:"contain",
+            comntains:"contains",
+            compair:"compare",
+            companys:"company’s",
+            compleated:"completed",
+            compleatly:"completely",
+            compleatness:"completeness",
+            completly:"completely",
+            completness:"completeness",
+            composate:"composite",
+            comtain:"contain",
+            comtains:"contains",
+            comunicate:"communicate",
+            comunity:"community",
+            condolances:"condolences",
+            conected:"connected",
+            conferance:"conference",
+            confirmmation:"confirmation",
+            considerit:"considerate",
+            considerite:"considerate",
+            consonent:"consonant",
+            conspiricy:"conspiracy",
+            consultent:"consultant",
+            convertable:"convertible",
+            cooparate:"cooperate",
+            cooporate:"cooperate",
+            corproation:"corporation",
+            corproations:"corporations",
+            corruptable:"corruptible",
+            cotten:"cotton",
+            coudl:"could",
+            coudlnt:"couldn’t",
+            coudnt:"couldn’t",
+            couldofbeen:"could have been",
+            couldofhad:"could have had",
+            couldnt:"couldn’t",
+            couldnt:"couldn’t",
+            couldthe:"could the",
+            cpoy:"copy",
+            creme:"crème",
+            ctaegory:"category",
+            cusotmer:"customer",
+            cusotmers:"customers",
+            cutsomer:"customer",
+            cutsomers:"customers",
+            cxan:"can",
+            danceing:"dancing",
+            dcument:"document",
+            deatils:"details",
+            decison:"decision",
+            decisons:"decisions",
+            decor:"décor",
+            defendent:"defendant",
+            definately:"definitely",
+            dejavu:"déjà vu",
+            deptartment:"department",
+            desicion:"decision",
+            desicions:"decisions",
+            desision:"decision",
+            desisions:"decisions",
+            detente:"détente",
+            develeoprs:"developers",
+            devellop:"develop",
+            develloped:"developed",
+            develloper:"developer",
+            devellopers:"developers",
+            develloping:"developing",
+            devellopment:"development",
+            devellopments:"developments",
+            devellops:"develop",
+            develope:"develop",
+            developement:"development",
+            developements:"developments",
+            developor:"developer",
+            developors:"developers",
+            develpment:"development",
+            diaplay:"display",
+            didint:"didn’t",
+            didnt:"didn’t",
+            didnot:"did not",
+            didnt:"didn’t",
+            difefrent:"different",
+            diferences:"differences",
+            differance:"difference",
+            differances:"differences",
+            differant:"different",
+            differemt:"different",
+            differnt:"different",
+            diffrent:"different",
+            directer:"director",
+            directers:"directors",
+            directiosn:"direction",
+            disatisfied:"dissatisfied",
+            discoverd:"discovered",
+            disign:"design",
+            dispaly:"display",
+            dissonent:"dissonant",
+            distribusion:"distribution",
+            divsion:"division",
+            dont:"don’t",
+            docuement:"documents",
+            docuemnt:"document",
+            documetn:"document",
+            documnet:"document",
+            documnets:"documents",
+            doesnot:"does not",
+            doenst:"doesn’t",
+            doese:"does",
+            doesnt:"doesn’t",
+            doesnt:"doesn’t",
+            doign:"doing",
+            doimg:"doing",
+            doind:"doing",
+            dollers:"dollars",
+            dontno:"don’t know",
+            dont:"don’t",
+            donig:"doing",
+            dont:"don’t",
+            dosnt:"doesn’t",
+            driveing:"driving",
+            drnik:"drink",
+            eclair:"éclair",
+            efel:"feel",
+            effecient:"efficient",
+            efort:"effort",
+            eforts:"efforts",
+            ehr:"her",
+            eligable:"eligible",
+            embarass:"embarrass",
+            emigre:"émigré",
+            enought:"enough",
+            entree:"entrée",
+            equippment:"equipment",
+            equivalant:"equivalent",
+            esle:"else",
+            especally:"especially",
+            especialyl:"especially",
+            espesially:"especially",
+            excellant:"excellent",
+            excercise:"exercise",
+            exchagne:"exchange",
+            exchagnes:"exchanges",
+            excitment:"excitement",
+            exhcange:"exchange",
+            exhcanges:"exchanges",
+            experiance:"experience",
+            experienc:"experience",
+            exprience:"experience",
+            exprienced:"experienced",
+            eyt:"yet",
+            facade:"façade",
+            faeture:"feature",
+            faetures:"features",
+            familair:"familiar",
+            familar:"familiar",
+            familliar:"familiar",
+            fammiliar:"familiar",
+            feild:"field",
+            feilds:"fields",
+            fianlly:"finally",
+            fidn:"find",
+            finalyl:"finally",
+            firends:"friends",
+            firts:"first",
+            follwo:"follow",
+            follwoing:"following",
+            fora:"for a",
+            foriegn:"foreign",
+            forthe:"for the",
+            forwrd:"forward",
+            forwrds:"forwards",
+            foudn:"found",
+            foward:"forward",
+            fowards:"forwards",
+            freind:"friend",
+            freindly:"friendly",
+            freinds:"friends",
+            frmo:"from",
+            fromthe:"from the",
+            fromthe:"from the",
+            furneral:"funeral",
+            fwe:"few",
+            garantee:"guarantee",
+            gaurd:"guard",
+            gemeral:"general",
+            gerat:"great",
+            geting:"getting",
+            gettin:"getting",
+            gievn:"given",
+            giveing:"giving",
+            gloabl:"global",
+            goign:"going",
+            gonig:"going",
+            govenment:"government",
+            goverment:"government",
+            gruop:"group",
+            gruops:"groups",
+            grwo:"grow",
+            guidlines:"guidelines",
+            hadbeen:"had been",
+            hadnt:"hadn’t",
+            haev:"have",
+            hapen:"happen",
+            hapened:"happened",
+            hapening:"happening",
+            hapens:"happens",
+            happend:"happened",
+            hasbeen:"has been",
+            hasnt:"hasn’t",
+            hasnt:"hasn’t",
+            havebeen:"have been",
+            haveing:"having",
+            havent:"haven’t",
+            hda:"had",
+            hell:"he’ll",
+            hearign:"hearing",
+            helpfull:"helpful",
+            heres:"here’s",
+            hesaid:"he said",
+            hewas:"he was",
+            hge:"he",
+            hismelf:"himself",
+            hlep:"help",
+            hsa:"has",
+            hsi:"his",
+            hte:"the",
+            htere:"there",
+            htese:"these",
+            htey:"they",
+            hting:"thing",
+            htink:"think",
+            htis:"this",
+            htp:"http:",
+            hvae:"have",
+            hvaing:"having",
+            hwich:"which",
+            i:"I",
+            isnot:"is not",
+            Im:"I’m",
+            Id:"I’d",
+            Ill:"I’ll",
+            idae:"idea",
+            idaes:"ideas",
+            identofy:"identify",
+            ihs:"his",
+            iitsthe:"it’s the",
+            imediate:"immediate",
+            imediatly:"immediately",
+            immediatly:"immediately",
+            importent:"important",
+            importnat:"important",
+            impossable:"impossible",
+            improvemnt:"improvement",
+            improvment:"improvement",
+            includ:"include",
+            indecate:"indicate",
+            indenpendence:"independence",
+            indenpendent:"independent",
+            indepedent:"independent",
+            independance:"independence",
+            independant:"independent",
+            influance:"influence",
+            infomation:"information",
+            informatoin:"information",
+            inital:"initial",
+            instaleld:"installed",
+            insted:"instead",
+            insurence:"insurance",
+            inthe:"in the",
+            inteh:"in the",
+            interum:"interim",
+            inthe:"in the",
+            inwhich:"in which",
+            isnt:"isn’t",
+            isthe:"is the",
+            itsnot:"it’s not",
+            itll:"it’ll",
+            its:"it’s",
+            itis:"it is",
+            ititial:"initial",
+            itnerest:"interest",
+            itnerested:"interested",
+            itneresting:"interesting",
+            itnerests:"interests",
+            itsa:"it’s a",
+            itsthe:"it’s the",
+            itwas:"it was",
+            iwll:"will",
+            iwth:"with",
+            jsut:"just",
+            jugment:"judgment",
+            knowldge:"knowledge",
+            knowlege:"knowledge",
+            knwo:"know",
+            knwon:"known",
+            knwos:"knows",
+            konw:"know",
+            konwn:"known",
+            konws:"knows",
+            labratory:"laboratory",
+            lastyear:"last year",
+            learnign:"learning",
+            lenght:"length",
+            letshim:"lets him",
+            letsit:"lets it",
+            lets:"let’s",
+            levle:"level",
+            libary:"library",
+            librarry:"library",
+            librery:"library",
+            liek:"like",
+            liekd:"liked",
+            lieutenent:"lieutenant",
+            liev:"live",
+            likly:"likely",
+            lisense:"license",
+            littel:"little",
+            litttle:"little",
+            liuke:"like",
+            liveing:"living",
+            loev:"love",
+            lonly:"lonely",
+            lookign:"looking",
+            maintenence:"maintenance",
+            makeing:"making",
+            managment:"management",
+            mantain:"maintain",
+            marraige:"marriage",
+          memeber:"member",
+            merchent:"merchant",
+            mesage:"message",
+            mesages:"messages",
+            mispell:"misspell",
+            mispelling:"misspelling",
+            mispellings:"misspellings",
+            mkae:"make",
+            mkaes:"makes",
+            mkaing:"making",
+            moeny:"money",
+            morgage:"mortgage",
+            mroe:"more",
+            mysefl:"myself",
+            myu:"my",
+            naive:"naïve",
+            necassarily:"necessarily",
+            necassary:"necessary",
+            neccessarily:"necessarily",
+            neccessary:"necessary",
+            necesarily:"necessarily",
+            necesary:"necessary",
+            negotiaing:"negotiating",
+            nkow:"know",
+            nothign:"nothing",
+            nver:"never",
+            nwe:"new",
+            nwo:"now",
+            obediant:"obedient",
+            ocasion:"occasion",
+            occassion:"occasion",
+            occured:"occurred",
+            occurence:"occurrence",
+            occurrance:"occurrence",
+            ocur:"occur",
+            oeprator:"operator",
+            ofits:"of its",
+            ofthe:"of the",
+            oging:"going",
+            ohter:"other",
+            omre:"more",
+            oneof:"one of",
+            onepoint:"one point",
+            onthe:"on the",
+            onyl:"only",
+            oppasite:"opposite",
+            opperation:"operation",
+            oppertunity:"opportunity",
+            opposate:"opposite",
+            opposible:"opposable",
+            opposit:"opposite",
+            oppotunities:"opportunities",
+            oppotunity:"opportunity",
+            orginization:"organization",
+            orginized:"organized",
+            otehr:"other",
+            otu:"out",
+            outof:"out of",
+            overthe:"over the",
+            owrk:"work",
+            owuld:"would",
+            oxident:"oxidant",
+            papaer:"paper",
+            parliment:"parliament",
+            partof:"part of",
+            paymetn:"payment",
+            paymetns:"payments",
+            pciture:"picture",
+            peice:"piece",
+            peices:"pieces",
+            peolpe:"people",
+            peopel:"people",
+            percentof:"percent of",
+            percentto:"percent to",
+            performence:"performance",
+            perhasp:"perhaps",
+            perhpas:"perhaps",
+            permanant:"permanent",
+            perminent:"permanent",
+            personalyl:"personally",
+            pleasent:"pleasant",
+            poeple:"people",
+            porblem:"problem",
+            porblems:"problems",
+            porvide:"provide",
+            possable:"possible",
+            postition:"position",
+            potentialy:"potentially",
+            pregnent:"pregnant",
+            presance:"presence",
+            probelm:"problem",
+            probelms:"problems",
+            prominant:"prominent",
+            protege:"protégé",
+            protoge:"protégé",
+            psoition:"position",
+            ptogress:"progress",
+            puting:"putting",
+            pwoer:"power",
+            quater:"quarter",
+            quaters:"quarters",
+            quesion:"question",
+            quesions:"questions",
+            questioms:"questions",
+            questiosn:"questions",
+            questoin:"question",
+            quetion:"question",
+            quetions:"questions",
+            realyl:"really",
+            reccomend:"recommend",
+            reccommend:"recommend",
+            receieve:"receive",
+            recieve:"receive",
+            recieved:"received",
+            recieving:"receiving",
+            recomend:"recommend",
+            recomendation:"recommendation",
+            recomendations:"recommendations",
+            recomended:"recommended",
+            reconize:"recognize",
+            recrod:"record",
+            religous:"religious",
+            reluctent:"reluctant",
+            remeber:"remember",
+            reommend:"recommend",
+            representativs:"representatives",
+            representives:"representatives",
+            represetned:"represented",
+            represnt:"represent",
+            reserach:"research",
+            resollution:"resolution",
+            resorces:"resources",
+            respomd:"respond",
+            respomse:"response",
+            responce:"response",
+            responsability:"responsibility",
+            responsable:"responsible",
+            responsibile:"responsible",
+            responsiblity:"responsibility",
+            restaraunt:"restaurant",
+            restuarant:"restaurant",
+            reult:"result",
+            reveiw:"review",
+            reveiwing:"reviewing",
+            rumers:"rumors",
+            rwite:"write",
+            rythm:"rhythm",
+            saidhe:"said he",
+            saidit:"said it",
+            saidthe:"said the",
+            saidthat:"said that",
+            scedule:"schedule",
+            sceduled:"scheduled",
+            seance:"séance",
+            secratary:"secretary",
+            sectino:"section",
+            seh:"she",
+            selectoin:"selection",
+            sentance:"sentence",
+            separeate:"separate",
+            seperate:"separate",
+            sercumstances:"circumstances",
+            shcool:"school",
+            shell:"she’ll",
+            shesaid:"she said",
+            shineing:"shining",
+            shiped:"shipped",
+            shoudl:"should",
+            shoudlnt:"shouldn’t",
+            shouldent:"shouldn’t",
+            shouldnt:"shouldn’t",
+            shouldnt:"shouldn’t",
+            showinf:"showing",
+            signifacnt:"significant",
+            simalar:"similar",
+            similiar:"similar",
+            simpyl:"simply",
+            sincerly:"sincerely",
+            sitll:"still",
+            smae:"same",
+            smoe:"some",
+            soem:"some",
+            sohw:"show",
+            soical:"social",
+            somethign:"something",
+            someting:"something",
+            somewaht:"somewhat",
+            somthing:"something",
+            somtimes:"sometimes",
+            sothat:"so that",
+            soudn:"sound",
+            soudns:"sounds",
+            speach:"speech",
+            specificaly:"specifically",
+            specificalyl:"specifically",
+            statment:"statement",
+            statments:"statements",
+            stnad:"stand",
+            stopry:"story",
+            stoyr:"story",
+            stpo:"stop",
+            strentgh:"strength",
+            stroy:"story",
+            struggel:"struggle",
+            strugle:"struggle",
+            studnet:"student",
+            successfull:"successful",
+            successfuly:"successfully",
+            successfulyl:"successfully",
+            sucess:"success",
+            sucessfull:"successful",
+            sufficiant:"sufficient",
+            suposed:"supposed",
+            suppossed:"supposed",
+            suprise:"surprise",
+            suprised:"surprised",
+            swiming:"swimming",
+            tahn:"than",
+            taht:"that",
+            talekd:"talked",
+            talkign:"talking",
+            tath:"that",
+            tecnical:"technical",
+            teh:"the",
+            tehy:"they",
+            tellthe:"tell the",
+            termoil:"turmoil",
+            tghe:"the",
+            tghis:"this",
+            thansk:"thanks",
+            thats:"that’s",
+            thatthe:"that the",
+            thecompany:"the company",
+            thefirst:"the first",
+            thegovernment:"the government",
+            theirare:"there are",
+            theiris:"there is",
+            themself:"themselves",
+            themselfs:"themselves",
+            thenew:"the new",
+            theri:"their",
+            thesame:"the same",
+            thetwo:"the two",
+            theyreare:"there are",
+            theyreis:"there is",
+            theyl:"they’ll",
+            theyll:"they’ll",
+            theyr:"they’re",
+            theyre:"they’re",
+            theyv:"they’ve",
+            theyve:"they’ve",
+            theyll:"they’ll",
+            theyve:"they’ve",
+            thgat:"that",
+            thge:"the",
+            thier:"their",
+            thigsn:"things",
+            thisyear:"this year",
+            thna:"than",
+            thne:"then",
+            thnig:"thing",
+            thnigs:"things",
+            threatend:"threatened",
+            thsi:"this",
+            thsoe:"those",
+            thta:"that",
+            tihs:"this",
+            timne:"time",
+            tiogether:"together",
+            tje:"the",
+            tjhe:"the",
+            tkae:"take",
+            tkaes:"takes",
+            tkaing:"taking",
+            tlaking:"talking",
+            todya:"today",
+            togehter:"together",
+            toldthe:"told the",
+            tomorow:"tomorrow",
+            tongiht:"tonight",
+            tonihgt:"tonight",
+            tothe:"to the",
+            totaly:"totally",
+            totalyl:"totally",
+            tothe:"to the",
+            towrad:"toward",
+            traditionalyl:"traditionally",
+            transfered:"transferred",
+            truely:"truly",
+            truley:"truly",
+            tryed:"tried",
+            tthe:"the",
+            tyhat:"that",
+            tyhe:"the",
+            udnerstand:"understand",
+            understnad:"understand",
+            underthe:"under the",
+            UnitedStates:"United States",
+            unliek:"unlike",
+            unpleasently:"unpleasantly",
+            untilll:"until",
+            useing:"using",
+            usualyl:"usually",
+            veyr:"very",
+            virtualyl:"virtually",
+            vrey:"very",
+            vulnerible:"vulnerable",
+            wasnot:"was not",
+            waht:"what",
+            warrent:"warrant",
+            wasnt:"wasn’t",
+            watn:"want",
+            wed:"we’d",
+            well:"we’ll",
+            were:"we’re",
+            weve:"we’ve",
+            wehn:"when",
+            wernt:"weren’t",
+            werre:"were",
+            whats:"what’s",
+            whcih:"which",
+            whenthe:"when the",
+            wheres:"where’s",
+            wherre:"where",
+            whic:"which",
+            whichthe:"which the",
+            whihc:"which",
+            whos:"who’s",
+            whove:"who’ve",
+            whta:"what",
+            wief:"wife",
+            wierd:"weird",
+            wihch:"which",
+            wiht:"with",
+            willbe:"will be",
+            windoes:"windows",
+            witha:"with a",
+            withe:"with",
+            withthe:"with the",
+            wiull:"will",
+            wnat:"want",
+            wnated:"wanted",
+            wnats:"wants",
+            woh:"who",
+            wohle:"whole",
+            wokr:"work",
+            wont:"won’t",
+            woudl:"would",
+            woudlnt:"wouldn’t",
+            wouldbe:"would be",
+            wriet:"write",
+            writting:"writing",
+            wrod:"word",
+            wroet:"wrote",
+            wroking:"working",
+            wtih:"with",
+            wuould:"would",
+            wya:"way",
+            yera:"year",
+            yeras:"years",
+            yersa:"years",
+            yoiu:"you",
+            youreown:"your own",
+            youd:"you’d",
+            youre:"you’re",
+            youare:"you are",
+            youve:"you’ve",
+            ytou:"you",
+            yuo:"you",
+            yuor:"your"
+                }
+            });
+        
+         //search bar stay
+                $('.inputsea').focusin(function () {
+
+                    $('.has-feedback').addClass("showClass");
+
+                   
+
+                });
+
+                $('.inputsea').focusout(function () {
+
+                    $('.has-feedback').removeClass("showClass");
+
+                   
+
+                });
+
+            //var pattern = new RegExp("@\w+");
+            //$("p").highlight("evenly");
+               // $(".plas").markRegExp(/@\w+/);
+
+                 //masonry
+                (function ($) {
+
+                    var $container = $('.masonry-container');
+                    $container.imagesLoaded(function () {
+                        $container.masonry({
+                            columnWidth: '.item',
+                            itemSelector: '.item',
+                            originLeft: true
+                        });
+                           
+                      
+
+                        $container.on('click', '.enlargewrite', function () {
+                            $( this ).siblings().removeClass('item--gigante');
+                            // change size of item via class
+                            $(this).toggleClass('item--gigante');
+                            // trigger layout
+                           
+                            $container.masonry({
+                                columnWidth: '.item',
+                                itemSelector: '.item',
+                                originLeft: true
+                            });
+                        });
+
+                       
+                    });
+
+
+                 
+                    $('a[data-toggle=tab]').each(function () {
+                        var $this = $(this);
+
+                        $this.on('shown.bs.tab', function () {
+
+                            $container.imagesLoaded(function () {
+                                $container.masonry({
+                                    columnWidth: '.item',
+                                    itemSelector: '.item',
+                                    originLeft: true
+                                });
+
+                                $container.on('click', '.enlargewrite', function () {
+                                    $( this ).siblings().removeClass('item--gigante');
+                                    // change size of item via class
+                                    $(this).toggleClass('item--gigante');
+                                    // trigger layout
+                           
+                                    $container.masonry({
+                                        columnWidth: '.item',
+                                        itemSelector: '.item'
+                                    });
+                                });
+
+                            });
+
+                        }); 
+                    }); 
+
+                  
+
+                })(jQuery);
+
+           
+            });
+        };
+
+      
+    </script>
+    <script type="text/javascript">
+        $('#ctl00_PageContent_hashtxt').tokenfield()
+    </script>
+    
+    <script type="text/javascript">
+
+
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+
+        $(function () {
+            $('#datetimepicker3').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+
+        $(function () {
+            $('#datetimepicker4').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+
+        $(function () {
+            $('#datetimepicker5').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+
+        $(function () {
+            $('#datetimepicker6').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+
+        $(function () {
+            $('#to').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+
+        $(function () {
+            $('#sadfrom').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+
+        $(function () {
+            $('#sadto').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+
+        $(function () {
+            $('#datetimepicker9').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+
+    </script>
+</body>
+</html>
